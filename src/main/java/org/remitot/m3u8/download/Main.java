@@ -6,11 +6,16 @@ import java.net.*;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
 public class Main {
+
+  protected static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
+  
   public static void main(String[] args) {
     if (args == null) {
       args = new String[0];
@@ -57,7 +62,7 @@ public class Main {
 
     String filenamePrefix = "part-"; // TODO read from args
 
-    Downloader downloader = new DownloaderImpl(outFolder, filenamePrefix, connector);
+    Downloader downloader = new Downloader(outFolder, filenamePrefix, connector);
     
     for (int i = skip; i < tsUrlStrs.size(); i++) {
       String tsUrlStr = tsUrlStrs.get(i);
@@ -91,7 +96,9 @@ public class Main {
         String mArg = arg.substring("--outFolder=".length());
         File f = new File(mArg);
         if (!f.exists()) {
-          f.mkdirs();
+          if (!f.mkdirs()) {
+            throw new IllegalStateException("Could not create dir: " + f);
+          }
         }
         if (!f.isDirectory()) {
           throw new IllegalArgumentException("'" + mArg + "' is not a directory");
