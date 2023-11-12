@@ -6,7 +6,6 @@ import java.net.*;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ public class Main {
     if (args == null) {
       args = new String[0];
     }
-
+    
     Proxy proxy = defineProxy(args);
 
     applyPkixWorkaround();
@@ -60,7 +59,7 @@ public class Main {
       System.out.println("Skipped " + skip + " parts");
     }
 
-    String filenamePrefix = "part-"; // TODO read from args
+    String filenamePrefix = "part-";
 
     Downloader downloader = new Downloader(outFolder, filenamePrefix, connector);
     

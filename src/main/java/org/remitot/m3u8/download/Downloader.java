@@ -38,9 +38,9 @@ public class Downloader {
     String filename = filenamePrefix + String.format("%05d", i) + ".ts";
     File file = new File(outFolder, filename);
 
-    try (BufferedInputStream in = new BufferedInputStream(connector.apply(ts).getInputStream());
+    try (InputStream in = new BufferedInputStream(connector.apply(ts).getInputStream());
          OutputStream os = new FileOutputStream(file)) {
-      byte dataBuffer[] = new byte[1024];
+      byte[] dataBuffer = new byte[1024];
       int bytesRead;
       while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
         os.write(dataBuffer, 0, bytesRead);
