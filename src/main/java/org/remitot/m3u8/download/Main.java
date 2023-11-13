@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
@@ -16,10 +17,24 @@ public class Main {
   protected static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
   
   public static void main(String[] args) {
-    if (args == null) {
-      args = new String[0];
+    boolean action = false;
+    if (args != null && args.length > 0) {
+      if ("download".equals(args[0])) {
+        download(args);
+        action = true;
+      } else if ("ffmpeg-list".equals(args[0])) {
+        ffmpegList(args);
+        action = true;
+      }
     }
-    
+    if (!action) {
+      System.out.println("Unknown action, exit");
+    }
+  }
+  
+  protected static final Function<Integer, String> partFilenameByIndex = index -> "part-" + String.format("%05d", index) + ".ts";
+  
+  protected static void download(String[] args) {
     Proxy proxy = defineProxy(args);
 
     applyPkixWorkaround();
@@ -59,9 +74,7 @@ public class Main {
       System.out.println("Skipped " + skip + " parts");
     }
 
-    String filenamePrefix = "part-";
-
-    Downloader downloader = new Downloader(outFolder, filenamePrefix, connector);
+    Downloader downloader = new Downloader(outFolder, connector, partFilenameByIndex);
     
     for (int i = skip; i < tsUrlStrs.size(); i++) {
       String tsUrlStr = tsUrlStrs.get(i);
@@ -203,5 +216,96 @@ public class Main {
       }
     }
     return 0;
+  }
+  
+  protected static void ffmpegList(String[] args) {
+    File folder = defineFolder(args);
+    int size = defineSize(args);
+    
+    // verify sequence of parts
+    String[] partFilenamesArray = folder.list((dir, name) -> name.matches("part\\-\\d{5}\\.ts"));
+    if (partFilenamesArray == null || partFilenamesArray.length == 0) {
+      // do nothing
+      System.out.println("The folder contains no 'part-*.ts' files");
+      return;
+    }
+    List<String> partFilenames = new ArrayList<>(Arrays.asList(partFilenamesArray));
+
+    long sizeb = 0;
+    long sizebmax = size * 1024 * 1024; // MB
+    
+    // indexes of parts delimiting vids
+    List<Integer> piDelims = new ArrayList<>();
+    piDelims.add(0);
+    
+    for (int i = 0; i < partFilenames.size(); i++) {
+      String filename = partFilenameByIndex.apply(i);
+      if (!partFilenames.contains(filename)) {
+        throw new IllegalStateException("Missing part: " + filename);
+      }
+      File file = new File(folder, filename);
+      long fileSize = file.length();
+      if (sizeb + fileSize <= sizebmax || sizeb == 0 && fileSize >= sizebmax) {
+        sizeb += fileSize;
+      } else {
+        piDelims.add(i);
+        sizeb = fileSize;
+      }
+    }
+    
+    for (int i = 0; i < piDelims.size(); i++) {
+      String listFilename = "ffmpeg-list-" + String.format("%02d", i) + ".txt";
+      File listFile = new File(folder, listFilename);
+
+      int piFrom = piDelims.get(i);
+      piFrom = Math.max(piFrom - 2, 0);
+      
+      int piTo = (i == piDelims.size() - 1) ? partFilenames.size() : piDelims.get(i + 1);
+      piTo = Math.min(piTo+ 2, partFilenames.size());
+      
+      try (PrintStream ps = new PrintStream(new FileOutputStream(listFile), true)) {
+        for (int pi = piFrom; pi < piTo; pi++) {
+          String partFilename = partFilenameByIndex.apply(pi);
+          String partFilenameAbs = new File(folder, partFilename).getAbsolutePath();
+          String partFilenameAbs2 = partFilenameAbs.replaceAll("\\\\", "/");
+          ps.println("file '" + partFilenameAbs2 + "'");  
+        }
+      } catch (FileNotFoundException e) {
+        throw new RuntimeException(e);
+      }
+    }
+  }
+
+  protected static File defineFolder(String[] cmdArgs) {
+    for (String arg : cmdArgs) {
+      if (arg.startsWith("--folder=")) {
+        String mArg = arg.substring("--folder=".length());
+        File f = new File(mArg);
+        if (!f.exists()) {
+          throw new IllegalArgumentException("'" + mArg + "' does not exist");
+        }
+        if (!f.isDirectory()) {
+          throw new IllegalArgumentException("'" + mArg + "' is not a directory");
+        }
+        return f;
+      }
+    }
+    throw new IllegalStateException("'--folder' argument is mandatory");
+  }
+
+  protected static int defineSize(String[] cmdArgs) {
+    for (String arg : cmdArgs) {
+      if (arg.startsWith("--size=")) {
+        String mArg = arg.substring("--size=".length());
+        if (mArg.matches("\\d+")) {
+          int size = Integer.parseInt(mArg);
+          if (size == 0) {
+            throw new IllegalArgumentException("--size must not be 0");
+          }
+          return size;
+        }
+      }
+    }
+    return 1024;
   }
 }

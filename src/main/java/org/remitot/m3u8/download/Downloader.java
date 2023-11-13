@@ -8,13 +8,13 @@ import java.util.function.Function;
 public class Downloader {
 
   protected final File outFolder;
-  protected final String filenamePrefix;
   protected final Function<URL, URLConnection> connector;
+  protected final Function<Integer, String> partFilenameByIndex;
   
-  public Downloader(File outFolder, String filenamePrefix, Function<URL, URLConnection> connector) {
+  public Downloader(File outFolder, Function<URL, URLConnection> connector, Function<Integer, String> partFilenameByIndex) {
     this.outFolder = outFolder;
-    this.filenamePrefix = filenamePrefix;
     this.connector = connector;
+    this.partFilenameByIndex = partFilenameByIndex;
   }
   
   public static class DefaultConnector implements Function<URL, URLConnection> {
@@ -28,14 +28,8 @@ public class Downloader {
     }
   } 
   
-  public static final Function<URL, URLConnection> DEFAULT_CONNECTOR = new DefaultConnector(); 
-  
-  public Downloader(File outFolder, String filenamePrefix) {
-    this(outFolder, filenamePrefix, DEFAULT_CONNECTOR);
-  }
-  
   public void downloadNextTs(URL ts, int i) {
-    String filename = filenamePrefix + String.format("%05d", i) + ".ts";
+    String filename = partFilenameByIndex.apply(i);
     File file = new File(outFolder, filename);
 
     try (InputStream in = new BufferedInputStream(connector.apply(ts).getInputStream());
