@@ -220,58 +220,61 @@ public class Main {
   
   protected static void ffmpegList(String[] args) {
     File folder = defineFolder(args);
-    int size = defineSize(args);
+    long size = defineSize(args);
     
     // verify sequence of parts
     String[] partFilenamesArray = folder.list((dir, name) -> name.matches("part\\-\\d{5}\\.ts"));
     if (partFilenamesArray == null || partFilenamesArray.length == 0) {
       // do nothing
       System.out.println("The folder contains no 'part-*.ts' files");
-      return;
-    }
-    List<String> partFilenames = new ArrayList<>(Arrays.asList(partFilenamesArray));
-
-    long sizeb = 0;
-    long sizebmax = size * 1024 * 1024; // MB
-    
-    // indexes of parts delimiting vids
-    List<Integer> piDelims = new ArrayList<>();
-    piDelims.add(0);
-    
-    for (int i = 0; i < partFilenames.size(); i++) {
-      String filename = partFilenameByIndex.apply(i);
-      if (!partFilenames.contains(filename)) {
-        throw new IllegalStateException("Missing part: " + filename);
-      }
-      File file = new File(folder, filename);
-      long fileSize = file.length();
-      if (sizeb + fileSize <= sizebmax || sizeb == 0 && fileSize >= sizebmax) {
-        sizeb += fileSize;
-      } else {
-        piDelims.add(i);
-        sizeb = fileSize;
-      }
-    }
-    
-    for (int i = 0; i < piDelims.size(); i++) {
-      String listFilename = "ffmpeg-list-" + String.format("%02d", i) + ".txt";
-      File listFile = new File(folder, listFilename);
-
-      int piFrom = piDelims.get(i);
-      piFrom = Math.max(piFrom - 2, 0);
+    } else {
       
-      int piTo = (i == piDelims.size() - 1) ? partFilenames.size() : piDelims.get(i + 1);
-      piTo = Math.min(piTo+ 2, partFilenames.size());
-      
-      try (PrintStream ps = new PrintStream(new FileOutputStream(listFile), true)) {
-        for (int pi = piFrom; pi < piTo; pi++) {
-          String partFilename = partFilenameByIndex.apply(pi);
-          String partFilenameAbs = new File(folder, partFilename).getAbsolutePath();
-          String partFilenameAbs2 = partFilenameAbs.replaceAll("\\\\", "/");
-          ps.println("file '" + partFilenameAbs2 + "'");  
+      List<String> partFilenames = new ArrayList<>(Arrays.asList(partFilenamesArray));
+
+      long sizeb = 0;
+      long sizebmax = size * 1024 * 1024; // MB
+      // indexes of parts delimiting chunks
+      List<Integer> piDelims = new ArrayList<>();
+      piDelims.add(0);
+
+      for (int i = 0; i < partFilenames.size(); i++) {
+        String filename = partFilenameByIndex.apply(i);
+        if (!partFilenames.contains(filename)) {
+          throw new IllegalStateException("Missing part: " + filename);
         }
-      } catch (FileNotFoundException e) {
-        throw new RuntimeException(e);
+        File file = new File(folder, filename);
+        long fileSize = file.length();
+        if (sizeb + fileSize <= sizebmax || sizeb == 0 && fileSize > sizebmax) {
+          sizeb += fileSize;
+        } else {
+          piDelims.add(i);
+          sizeb = fileSize;
+        }
+      }
+
+      for (int i = 0; i < piDelims.size(); i++) {
+        String listFilename = "ffmpeg-list-" + String.format("%02d", i) + ".txt";
+        File listFile = new File(folder, listFilename);
+
+        int piFrom = Math.max(piDelims.get(i) - 2, 0);
+
+        int piTo;
+        if (i == piDelims.size() - 1) {
+          piTo = partFilenames.size();
+        } else {
+          piTo = Math.min(piDelims.get(i + 1) + 2, partFilenames.size());
+        }
+        
+        try (PrintStream ps = new PrintStream(new FileOutputStream(listFile), true)) {
+          for (int pi = piFrom; pi < piTo; pi++) {
+            String partFilename = partFilenameByIndex.apply(pi);
+            String partFilenameAbs = new File(folder, partFilename).getAbsolutePath();
+            String partFilenameAbs2 = partFilenameAbs.replaceAll("\\\\", "/");
+            ps.println("file '" + partFilenameAbs2 + "'");
+          }
+        } catch (FileNotFoundException e) {
+          throw new RuntimeException(e);
+        }
       }
     }
   }
@@ -303,6 +306,8 @@ public class Main {
             throw new IllegalArgumentException("--size must not be 0");
           }
           return size;
+        } else {
+          throw new IllegalArgumentException("expected: '--size=123', actual: '" + arg + "'");
         }
       }
     }
