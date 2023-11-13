@@ -220,7 +220,6 @@ public class Main {
   
   protected static void ffmpegList(String[] args) {
     File folder = defineFolder(args);
-    long size = defineSize(args);
     
     // verify sequence of parts
     String[] partFilenamesArray = folder.list((dir, name) -> name.matches("part\\-\\d{5}\\.ts"));
@@ -231,50 +230,20 @@ public class Main {
       
       List<String> partFilenames = new ArrayList<>(Arrays.asList(partFilenamesArray));
 
-      long sizeb = 0;
-      long sizebmax = size * 1024 * 1024; // MB
-      // indexes of parts delimiting chunks
-      List<Integer> piDelims = new ArrayList<>();
-      piDelims.add(0);
-
-      for (int i = 0; i < partFilenames.size(); i++) {
-        String filename = partFilenameByIndex.apply(i);
-        if (!partFilenames.contains(filename)) {
-          throw new IllegalStateException("Missing part: " + filename);
-        }
-        File file = new File(folder, filename);
-        long fileSize = file.length();
-        if (sizeb + fileSize <= sizebmax || sizeb == 0 && fileSize > sizebmax) {
-          sizeb += fileSize;
-        } else {
-          piDelims.add(i);
-          sizeb = fileSize;
-        }
-      }
-
-      for (int i = 0; i < piDelims.size(); i++) {
-        String listFilename = "ffmpeg-list-" + String.format("%02d", i) + ".txt";
-        File listFile = new File(folder, listFilename);
-
-        int piFrom = Math.max(piDelims.get(i) - 2, 0);
-
-        int piTo;
-        if (i == piDelims.size() - 1) {
-          piTo = partFilenames.size();
-        } else {
-          piTo = Math.min(piDelims.get(i + 1) + 2, partFilenames.size());
-        }
-        
-        try (PrintStream ps = new PrintStream(new FileOutputStream(listFile), true)) {
-          for (int pi = piFrom; pi < piTo; pi++) {
-            String partFilename = partFilenameByIndex.apply(pi);
-            String partFilenameAbs = new File(folder, partFilename).getAbsolutePath();
-            String partFilenameAbs2 = partFilenameAbs.replaceAll("\\\\", "/");
-            ps.println("file '" + partFilenameAbs2 + "'");
+      File listFile = new File(folder, "ffmpeg-list.txt");
+      try (PrintStream ps = new PrintStream(new FileOutputStream(listFile), true)) {
+        for (int i = 0; i < partFilenames.size(); i++) {
+          String partFilename = partFilenameByIndex.apply(i);
+          if (!partFilenames.contains(partFilename)) {
+            throw new IllegalStateException("Missing part: " + partFilename);
           }
-        } catch (FileNotFoundException e) {
-          throw new RuntimeException(e);
+          
+          String partFilenameAbs = new File(folder, partFilename).getAbsolutePath();
+          String partFilenameAbs2 = partFilenameAbs.replaceAll("\\\\", "/");
+          ps.println("file '" + partFilenameAbs2 + "'");
         }
+      } catch (FileNotFoundException e) {
+        throw new RuntimeException(e);
       }
     }
   }
@@ -294,23 +263,5 @@ public class Main {
       }
     }
     throw new IllegalStateException("'--folder' argument is mandatory");
-  }
-
-  protected static int defineSize(String[] cmdArgs) {
-    for (String arg : cmdArgs) {
-      if (arg.startsWith("--size=")) {
-        String mArg = arg.substring("--size=".length());
-        if (mArg.matches("\\d+")) {
-          int size = Integer.parseInt(mArg);
-          if (size == 0) {
-            throw new IllegalArgumentException("--size must not be 0");
-          }
-          return size;
-        } else {
-          throw new IllegalArgumentException("expected: '--size=123', actual: '" + arg + "'");
-        }
-      }
-    }
-    return 1024;
   }
 }
