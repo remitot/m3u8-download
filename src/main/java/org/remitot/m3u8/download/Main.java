@@ -74,8 +74,6 @@ public class Main {
       System.out.println("Skipped " + skip + " parts");
     }
 
-    Downloader downloader = new Downloader(outFolder, connector, partFilenameByIndex);
-    
     for (int i = skip; i < tsUrlStrs.size(); i++) {
       String tsUrlStr = tsUrlStrs.get(i);
 
@@ -87,7 +85,8 @@ public class Main {
       }
 
       try {
-        downloader.downloadNextTs(tsUrl, i);
+        URLConnection connection = connector.apply(tsUrl);
+        downloadNextTs(connection, i, outFolder);
       } catch (Throwable e) {
         if (i > 0) {
           System.out.println("Error downloading part #" + i);
@@ -263,5 +262,21 @@ public class Main {
       }
     }
     throw new IllegalStateException("'--folder' argument is mandatory");
+  }
+
+  protected static void downloadNextTs(URLConnection connection, int i, File outFolder) {
+    String filename = partFilenameByIndex.apply(i);
+    File file = new File(outFolder, filename);
+
+    try (InputStream in = new BufferedInputStream(connection.getInputStream());
+         OutputStream os = new FileOutputStream(file)) {
+      byte[] dataBuffer = new byte[1024];
+      int bytesRead;
+      while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
+        os.write(dataBuffer, 0, bytesRead);
+      }
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 }
