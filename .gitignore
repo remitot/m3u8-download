@@ -1,2 +1,4 @@
 target
 cmd-args-proxy-rosbank.txt
+*.iml
+dependency-reduced-pom.xml

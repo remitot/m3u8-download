@@ -1,0 +1,33 @@
+#EXTM3U
+#EXT-X-STREAM-INF:BANDWIDTH=768000,CODECS="mp4a.40.2, avc1.64001e",RESOLUTION=640x360
+https://server.com/api/playlist/media/f9848286302057ab8813f768e54a621b/79b8d2b8db12944494c43f8335a1f7b0/360?consumer=vod&sid=&user-cdn=cdnvideo&version=17%3A2%3A1%3A0%3Acdnvideo&user-id=300080&jwt=V1QiLCJhbGciOiJIUzI1NiJ9.WlkIjozMDA4NDAwODB9.8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=768000,CODECS="mp4a.40.2, avc1.64001e",RESOLUTION=640x360
+https://server.com/api/playlist/media/f9848286302057ab8813f768e54a621b/79b8d2b8db12944494c43f8335a1f7b0/360?consumer=vod&sid=&user-cdn=integrosproxy&version=17%3A2%3A1%3A0%3Aintegrosproxy&user-id=300080&jwt=V1QiLCJhbGciOiJIUzI1NiJ9.WlkIjozMDA4NDAwODB9.8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=768000,CODECS="mp4a.40.2, avc1.64001e",RESOLUTION=640x360
+https://server.com/api/playlist/media/f9848286302057ab8813f768e54a621b/79b8d2b8db12944494c43f8335a1f7b0/360?consumer=vod&sid=&user-cdn=gcore&version=17%3A2%3A1%3A0%3Agcore&user-id=300080&jwt=V1QiLCJhbGciOiJIUzI1NiJ9.WlkIjozMDA4NDAwODB9.8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=768000,CODECS="mp4a.40.2, avc1.64001e",RESOLUTION=640x360
+https://server.com/api/playlist/media/f9848286302057ab8813f768e54a621b/79b8d2b8db12944494c43f8335a1f7b0/360?consumer=vod&sid=&user-cdn=cloudflare&version=17%3A2%3A1%3A0%3Acloudflare&user-id=300080&jwt=V1QiLCJhbGciOiJIUzI1NiJ9.WlkIjozMDA4NDAwODB9.8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=1024000,CODECS="mp4a.40.2, avc1.64001e",RESOLUTION=853x480
+https://server.com/api/playlist/media/f9848286302057ab8813f768e54a621b/79b8d2b8db12944494c43f8335a1f7b0/480?consumer=vod&sid=&user-cdn=cdnvideo&version=17%3A2%3A1%3A0%3Acdnvideo&user-id=300080&jwt=V1QiLCJhbGciOiJIUzI1NiJ9.WlkIjozMDA4NDAwODB9.8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=1024000,CODECS="mp4a.40.2, avc1.64001e",RESOLUTION=853x480
+https://server.com/api/playlist/media/f9848286302057ab8813f768e54a621b/79b8d2b8db12944494c43f8335a1f7b0/480?consumer=vod&sid=&user-cdn=integrosproxy&version=17%3A2%3A1%3A0%3Aintegrosproxy&user-id=300080&jwt=V1QiLCJhbGciOiJIUzI1NiJ9.WlkIjozMDA4NDAwODB9.8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=1024000,CODECS="mp4a.40.2, avc1.64001e",RESOLUTION=853x480
+https://server.com/api/playlist/media/f9848286302057ab8813f768e54a621b/79b8d2b8db12944494c43f8335a1f7b0/480?consumer=vod&sid=&user-cdn=gcore&version=17%3A2%3A1%3A0%3Agcore&user-id=300080&jwt=V1QiLCJhbGciOiJIUzI1NiJ9.WlkIjozMDA4NDAwODB9.8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=1024000,CODECS="mp4a.40.2, avc1.64001e",RESOLUTION=853x480
+https://server.com/api/playlist/media/f9848286302057ab8813f768e54a621b/79b8d2b8db12944494c43f8335a1f7b0/480?consumer=vod&sid=&user-cdn=cloudflare&version=17%3A2%3A1%3A0%3Acloudflare&user-id=300080&jwt=V1QiLCJhbGciOiJIUzI1NiJ9.WlkIjozMDA4NDAwODB9.8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=2560000,CODECS="mp4a.40.2, avc1.64001e",RESOLUTION=1280x720
+https://server.com/api/playlist/media/f9848286302057ab8813f768e54a621b/79b8d2b8db12944494c43f8335a1f7b0/720?consumer=vod&sid=&user-cdn=cdnvideo&version=17%3A2%3A1%3A0%3Acdnvideo&user-id=300080&jwt=V1QiLCJhbGciOiJIUzI1NiJ9.WlkIjozMDA4NDAwODB9.8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=2560000,CODECS="mp4a.40.2, avc1.64001e",RESOLUTION=1280x720
+https://server.com/api/playlist/media/f9848286302057ab8813f768e54a621b/79b8d2b8db12944494c43f8335a1f7b0/720?consumer=vod&sid=&user-cdn=integrosproxy&version=17%3A2%3A1%3A0%3Aintegrosproxy&user-id=300080&jwt=V1QiLCJhbGciOiJIUzI1NiJ9.WlkIjozMDA4NDAwODB9.8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=2560000,CODECS="mp4a.40.2, avc1.64001e",RESOLUTION=1280x720
+https://server.com/api/playlist/media/f9848286302057ab8813f768e54a621b/79b8d2b8db12944494c43f8335a1f7b0/720?consumer=vod&sid=&user-cdn=gcore&version=17%3A2%3A1%3A0%3Agcore&user-id=300080&jwt=V1QiLCJhbGciOiJIUzI1NiJ9.WlkIjozMDA4NDAwODB9.8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=2560000,CODECS="mp4a.40.2, avc1.64001e",RESOLUTION=1280x720
+https://server.com/api/playlist/media/f9848286302057ab8813f768e54a621b/79b8d2b8db12944494c43f8335a1f7b0/720?consumer=vod&sid=&user-cdn=cloudflare&version=17%3A2%3A1%3A0%3Acloudflare&user-id=300080&jwt=V1QiLCJhbGciOiJIUzI1NiJ9.WlkIjozMDA4NDAwODB9.8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=4096000,CODECS="mp4a.40.2, avc1.64001e",RESOLUTION=1920x1080
+https://server.com/api/playlist/media/f9848286302057ab8813f768e54a621b/79b8d2b8db12944494c43f8335a1f7b0/1080?consumer=vod&sid=&user-cdn=cdnvideo&version=17%3A2%3A1%3A0%3Acdnvideo&user-id=300080&jwt=V1QiLCJhbGciOiJIUzI1NiJ9.WlkIjozMDA4NDAwODB9.8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=4096000,CODECS="mp4a.40.2, avc1.64001e",RESOLUTION=1920x1080
+https://server.com/api/playlist/media/f9848286302057ab8813f768e54a621b/79b8d2b8db12944494c43f8335a1f7b0/1080?consumer=vod&sid=&user-cdn=integrosproxy&version=17%3A2%3A1%3A0%3Aintegrosproxy&user-id=300080&jwt=V1QiLCJhbGciOiJIUzI1NiJ9.WlkIjozMDA4NDAwODB9.8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=4096000,CODECS="mp4a.40.2, avc1.64001e",RESOLUTION=1920x1080
+https://server.com/api/playlist/media/f9848286302057ab8813f768e54a621b/79b8d2b8db12944494c43f8335a1f7b0/1080?consumer=vod&sid=&user-cdn=gcore&version=17%3A2%3A1%3A0%3Agcore&user-id=300080&jwt=V1QiLCJhbGciOiJIUzI1NiJ9.WlkIjozMDA4NDAwODB9.8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=4096000,CODECS="mp4a.40.2, avc1.64001e",RESOLUTION=1920x1080
+https://server.com/api/playlist/media/f9848286302057ab8813f768e54a621b/79b8d2b8db12944494c43f8335a1f7b0/1080?consumer=vod&sid=&user-cdn=cloudflare&version=17%3A2%3A1%3A0%3Acloudflare&user-id=300080&jwt=V1QiLCJhbGciOiJIUzI1NiJ9.WlkIjozMDA4NDAwODB9.8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
