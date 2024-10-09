@@ -38,12 +38,12 @@ public class Processor implements Runnable {
     };
 
     this.streamListUrl = determineStreamListUrl(args);
-    // verify URL for the user against cmd's escaping
-    out.println("Verify param streamListUrl: >>>" + this.streamListUrl + "<<<");
+    out.println("Verify param streamListUrl: >>>" + this.streamListUrl + "<<<"); // verify param for the user against cmd's escaping
 
     this.outFolder = determineOutFolder(args);
+    out.println("Verify param outFolder: >>>" + this.outFolder.getAbsolutePath() + "<<<");// verify param for the user against cmd's escaping
     prepareFolder(this.outFolder);
-    out.println("Verify param outFolder: >>>" + this.outFolder.getAbsolutePath() + "<<<");
+
 
     this.partsFolder = new File(this.outFolder, "parts");
     prepareFolder(this.partsFolder);
