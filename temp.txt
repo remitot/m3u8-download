@@ -1,7 +1,10 @@
-рабочая
+cd c:\Work && "C:\Program Files\Eclipse Adoptium\jdk-11.0.19.7-hotspot\bin\java.exe" -jar m3u8-download-2.0.0.jar --outFolder=vid-01 "--streamListUrl=file:///C:/Work/1.txt"
+
+
+1. рабочая
 cd /d d:\video && "C:\Program Files\jdk-11.0.21+9-jre\bin\java.exe" -jar m3u8-download-2.0.0.jar --outFolder=vid-01 "--streamListUrl=https://cf-api-2.vhcdn.com/api/playlist/master/27401913af999134617bc9efe453b6fd/324d0a2159627aa5f9c4cb37459cd35e?user-cdn=cloudflare&acc-id=494727&user-id=300840080&loc-mode=ru&version=40%3A2%3A1%3A0%3A2%3Acloudflare&consumer=vod&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLWlkIjozMDA4NDAwODB9.SLnHJRTJX5fl8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g&pldm=cf1" && "c:\Program Files\ffmpeg-6.0\bin\ffmpeg.exe" -f concat -safe 0 -i "d:\video\vid-01\ffmpeg-list.txt" -c copy "d:\video\vid-01.mp4"
 
-нерабочая
+2. нерабочая
 cd /d d:\video && "C:\Program Files\jdk-11.0.21+9-jre\bin\java.exe" -jar m3u8-download-2.0.0.jar --outFolder=vid-01 "--streamListUrl=https://vh-api2-hel1-dc8.gceuproxy.com/api/playlist/media/87f08836c6fc2ca7fad74a8f4b15f4c3/8793cb344663c76d90bd03fe39653e2c/480?consumer=vod&sid=&user-cdn=cloudflare&version=43%3A2%3A1%3A1%3Acloudflare&user-id=300840080&plck=mde2e03a71db90d50b1309e609d3bea549&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLWlkIjozMDA4NDAwODB9.SLnHJRTJX5fl8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g" && "c:\Program Files\ffmpeg-6.0\bin\ffmpeg.exe" -f concat -safe 0 -i "d:\video\vid-01\ffmpeg-list.txt" -c copy "d:\video\vid-01.mp4"
 
 
