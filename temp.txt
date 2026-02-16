@@ -1,0 +1,23 @@
+рабочая
+cd /d d:\video && "C:\Program Files\jdk-11.0.21+9-jre\bin\java.exe" -jar m3u8-download-2.0.0.jar --outFolder=vid-01 "--streamListUrl=https://cf-api-2.vhcdn.com/api/playlist/master/27401913af999134617bc9efe453b6fd/324d0a2159627aa5f9c4cb37459cd35e?user-cdn=cloudflare&acc-id=494727&user-id=300840080&loc-mode=ru&version=40%3A2%3A1%3A0%3A2%3Acloudflare&consumer=vod&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLWlkIjozMDA4NDAwODB9.SLnHJRTJX5fl8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g&pldm=cf1" && "c:\Program Files\ffmpeg-6.0\bin\ffmpeg.exe" -f concat -safe 0 -i "d:\video\vid-01\ffmpeg-list.txt" -c copy "d:\video\vid-01.mp4"
+
+нерабочая
+cd /d d:\video && "C:\Program Files\jdk-11.0.21+9-jre\bin\java.exe" -jar m3u8-download-2.0.0.jar --outFolder=vid-01 "--streamListUrl=https://vh-api2-hel1-dc8.gceuproxy.com/api/playlist/media/87f08836c6fc2ca7fad74a8f4b15f4c3/8793cb344663c76d90bd03fe39653e2c/480?consumer=vod&sid=&user-cdn=cloudflare&version=43%3A2%3A1%3A1%3Acloudflare&user-id=300840080&plck=mde2e03a71db90d50b1309e609d3bea549&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLWlkIjozMDA4NDAwODB9.SLnHJRTJX5fl8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g" && "c:\Program Files\ffmpeg-6.0\bin\ffmpeg.exe" -f concat -safe 0 -i "d:\video\vid-01\ffmpeg-list.txt" -c copy "d:\video\vid-01.mp4"
+
+
+
+файл
+#EXTM3U
+#EXT-X-CONTENT-STEERING:SERVER-URI="data:application/vnd.apple.steeringlist;base64,eyJWRVJTSU9OIjoxLCJUVEwiOjMwMDAwLCJQQVRIV0FZLVBSSU9SSVRZIjpbImNkbnZpZGVvIiwiaW50ZWdyb3Nwcm94eSJdfQ==",PATHWAY-ID="cdnvideo"
+#EXT-X-STREAM-INF:BANDWIDTH=768000,CODECS="mp4a.40.2, avc1.64001e",PATHWAY-ID="cdnvideo",RESOLUTION=640x360
+https://vhapi02.gcfiles.net/api/playlist/media/bff9e27f46bd15a9e1795e02677bb226/cc97c59487b4f59ceeaf2e403190fb94/360?consumer=vod&sid=&user-cdn=cdnvideo&version=47%3A2%3A1%3A1%3Acdnvideo&user-id=300840080&plck=md75d2b58981f1c9b8a4341c68995b4720&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLWlkIjozMDA4NDAwODB9.SLnHJRTJX5fl8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=768000,CODECS="mp4a.40.2, avc1.64001e",PATHWAY-ID="integrosproxy",RESOLUTION=640x360
+https://vhapi02.gcfiles.net/api/playlist/media/bff9e27f46bd15a9e1795e02677bb226/cc97c59487b4f59ceeaf2e403190fb94/360?consumer=vod&sid=&user-cdn=integrosproxy&version=47%3A2%3A1%3A1%3Aintegrosproxy&user-id=300840080&plck=mdba34b5353280b43af85728eba0eb41ce&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLWlkIjozMDA4NDAwODB9.SLnHJRTJX5fl8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=1024000,CODECS="mp4a.40.2, avc1.64001e",PATHWAY-ID="cdnvideo",RESOLUTION=853x480
+https://vhapi02.gcfiles.net/api/playlist/media/bff9e27f46bd15a9e1795e02677bb226/cc97c59487b4f59ceeaf2e403190fb94/480?consumer=vod&sid=&user-cdn=cdnvideo&version=47%3A2%3A1%3A1%3Acdnvideo&user-id=300840080&plck=mdf7b3b1fe2366a886795b957258cd12a5&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLWlkIjozMDA4NDAwODB9.SLnHJRTJX5fl8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=1024000,CODECS="mp4a.40.2, avc1.64001e",PATHWAY-ID="integrosproxy",RESOLUTION=853x480
+https://vhapi02.gcfiles.net/api/playlist/media/bff9e27f46bd15a9e1795e02677bb226/cc97c59487b4f59ceeaf2e403190fb94/480?consumer=vod&sid=&user-cdn=integrosproxy&version=47%3A2%3A1%3A1%3Aintegrosproxy&user-id=300840080&plck=md68aca5bd911eebb40cc2a28a1712ae81&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLWlkIjozMDA4NDAwODB9.SLnHJRTJX5fl8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=2560000,CODECS="mp4a.40.2, avc1.64001e",PATHWAY-ID="cdnvideo",RESOLUTION=1280x720
+https://vhapi02.gcfiles.net/api/playlist/media/bff9e27f46bd15a9e1795e02677bb226/cc97c59487b4f59ceeaf2e403190fb94/720?consumer=vod&sid=&user-cdn=cdnvideo&version=47%3A2%3A1%3A1%3Acdnvideo&user-id=300840080&plck=md997db4583515d88fd9d9db18b600c603&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLWlkIjozMDA4NDAwODB9.SLnHJRTJX5fl8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
+#EXT-X-STREAM-INF:BANDWIDTH=2560000,CODECS="mp4a.40.2, avc1.64001e",PATHWAY-ID="integrosproxy",RESOLUTION=1280x720
+https://vhapi02.gcfiles.net/api/playlist/media/bff9e27f46bd15a9e1795e02677bb226/cc97c59487b4f59ceeaf2e403190fb94/720?consumer=vod&sid=&user-cdn=integrosproxy&version=47%3A2%3A1%3A1%3Aintegrosproxy&user-id=300840080&plck=md063a3278dc2c5589ef020f9ba2f0bf0b&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLWlkIjozMDA4NDAwODB9.SLnHJRTJX5fl8CsbYKB0euvXzsKu4UqYPIQ8S8XdZ7g
